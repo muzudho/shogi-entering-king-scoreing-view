@@ -55,7 +55,7 @@ if True:
     print(f'    大会モード {csaFile.tournament}') 
     print(f'    URL {csaFile.url}') 
     # 盤表示
-    # csaFile.printBoard()
+    csaFile.printBoard()
     print(f'    ハートビート {heartBeatSeconds}') # 生きてますよ
 
     if csaFile.endTime:
