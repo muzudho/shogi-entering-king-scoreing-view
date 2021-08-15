@@ -46,6 +46,9 @@ class CsaFile:
 
         # 将棋盤
         self._board = [""] * 100
+        
+        # 持駒の数 [未使用, ▲飛, ▲角, ▲金, ▲銀, ▲桂, ▲香, ▲歩, ▽飛, ▽角, ▽金, ▽銀, ▽桂, ▽香, ▽歩]
+        self._hands = [0] * 15
 
     @staticmethod
     def load(tournament, csaUrl):
@@ -157,12 +160,30 @@ class CsaFile:
         return self._board
 
     @property
+    def hands(self):
+        """持駒の数 [未使用, ▲飛, ▲角, ▲金, ▲銀, ▲桂, ▲香, ▲歩, ▽飛, ▽角, ▽金, ▽銀, ▽桂, ▽香, ▽歩]"""
+        self._hands = [0] * 15
+
+    @property
     def endTime(self):
         """終了時間"""
         return self._endTime
 
     def printBoard(self):
-        print(f"  9   8   7   6   5   4   3   2   1")
+        # 後手の持ち駒
+        a = "{: >3}".format(self._hands[8])
+        b = "{: >3}".format(self._hands[9])
+        c = "{: >3}".format(self._hands[10])
+        d = "{: >3}".format(self._hands[11])
+        e = "{: >3}".format(self._hands[12])
+        f = "{: >3}".format(self._hands[13])
+        g = "{: >3}".format(self._hands[14])
+        print(f" HI  KA  KI  GI  KE  KY  FU  ")
+        print(f"+---+---+---+---+---+---+---+")
+        print(f"|{a}|{b}|{c}|{d}|{e}|{f}|{g}|")
+        print(f"+---+---+---+---+---+---+---+")
+        print(f"")
+        # 盤
         print(f"+---+---+---+---+---+---+---+---+---+  ")
         a = "{: >3}".format(self._board[91])
         b = "{: >3}".format(self._board[81])
@@ -263,3 +284,16 @@ class CsaFile:
         i = "{: >3}".format(self._board[19])
         print(f"|{a}|{b}|{c}|{d}|{e}|{f}|{g}|{h}|{i}| 9")
         print(f"+---+---+---+---+---+---+---+---+---+  ")
+        # 先手の持ち駒
+        print(f"")
+        a = "{: >3}".format(self._hands[1])
+        b = "{: >3}".format(self._hands[2])
+        c = "{: >3}".format(self._hands[3])
+        d = "{: >3}".format(self._hands[4])
+        e = "{: >3}".format(self._hands[5])
+        f = "{: >3}".format(self._hands[6])
+        g = "{: >3}".format(self._hands[7])
+        print(f"         HI  KA  KI  GI  KE  KY  FU  ")
+        print(f"        +---+---+---+---+---+---+---+")
+        print(f"        |{a}|{b}|{c}|{d}|{e}|{f}|{g}|")
+        print(f"        +---+---+---+---+---+---+---+")
