@@ -91,11 +91,8 @@ class CsaFile:
             # 開始局面
             result = CsaFile.__patternP.match(line)
             if result:
-                # print(f"P> {line}")
+                print(f"Position> {result.group(0)}")
                 rank = int(result.group(1))
-                print(f"P> {result.group(0)}")
-                # print(f"rank={rank}")
-                # print(f"rank={rank} 9[{result.group(2)}]")
                 csaFile._board[90 + rank] = result.group(2)
                 csaFile._board[80 + rank] = result.group(3)
                 csaFile._board[70 + rank] = result.group(4)
@@ -105,24 +102,105 @@ class CsaFile:
                 csaFile._board[30 + rank] = result.group(8)
                 csaFile._board[20 + rank] = result.group(9)
                 csaFile._board[10 + rank] = result.group(10)
-                # print(f"P Rank[{rank}] 9[{file9}] 8[{file8}] 7[{file7}] 6[{file6}] 5[{file5}] 4[{file4}] 3[{file3}] 2[{file2}] 1[{file1}]")
                 continue
 
-            # 指し手
+            # TODO 指し手
             result = CsaFile.__patternMove.match(line)
             if result:
                 phase = result.group(1)
                 source = int(result.group(2))
                 destination = int(result.group(3))
                 piece = result.group(4)
-                print(f"M {result.group(0)} [phase]{phase:>2} [source]{source:>2} [destination]{destination} [piece]{piece}")
+                print(f"Move> {result.group(0)} [phase]{phase:>2} [source]{source:>2} [destination]{destination} [piece]{piece}")
+                # 駒を打つとき、駒台から減らす
+                if source == 0:
+                    if piece == "+FU":
+                        csaFile._hands[7] -= 1
+                    elif piece == "+KY":
+                        csaFile._hands[6] += 1
+                    elif piece == "+KE" or dstPc == "+NK":
+                        csaFile._hands[5] += 1
+                    elif piece == "+GI" or dstPc == "+NG":
+                        csaFile._hands[4] += 1
+                    elif piece == "+KI":
+                        csaFile._hands[3] += 1
+                    elif piece == "+KA" or dstPc == "+UM":
+                        csaFile._hands[2] += 1
+                    elif piece == "+HI" or dstPc == "+RY":
+                        csaFile._hands[1] += 1
+                    elif piece == "+OU":
+                        pass
+                    elif piece == "-FU":
+                        csaFile._hands[14] -= 1
+                    elif piece == "-KY":
+                        csaFile._hands[13] += 1
+                    elif piece == "-KE" or dstPc == "-NK":
+                        csaFile._hands[12] += 1
+                    elif piece == "-GI" or dstPc == "-NG":
+                        csaFile._hands[11] += 1
+                    elif piece == "-KI":
+                        csaFile._hands[10] += 1
+                    elif piece == "-KA" or dstPc == "-UM":
+                        csaFile._hands[9] += 1
+                    elif piece == "-HI" or dstPc == "-RY":
+                        csaFile._hands[8] += 1
+                    elif piece == "-OU":
+                        pass
+
+                # 移動先に駒があれば駒台へ移動
+                srcPc = csaFile.board[source] # sourcePiece
+                dstPc = csaFile.board[destination] # destinationPiece
+                if phase=='+':
+                    if dstPc == "-FU" or dstPc == "-TO":
+                        csaFile._hands[7] += 1
+                    elif dstPc == "-KY" or dstPc == "-NY":
+                        csaFile._hands[6] += 1
+                    elif dstPc == "-KE" or dstPc == "-NK":
+                        csaFile._hands[5] += 1
+                    elif dstPc == "-GI" or dstPc == "-NG":
+                        csaFile._hands[4] += 1
+                    elif dstPc == "-KI":
+                        csaFile._hands[3] += 1
+                    elif dstPc == "-KA" or dstPc == "-UM":
+                        csaFile._hands[2] += 1
+                    elif dstPc == "-HI" or dstPc == "-RY":
+                        csaFile._hands[1] += 1
+                    elif dstPc == "-OU":
+                        pass
+                elif phase=='-':
+                    if dstPc == "+FU" or dstPc == "+TO":
+                        csaFile._hands[14] += 1
+                    elif dstPc == "+KY" or dstPc == "+NY":
+                        csaFile._hands[13] += 1
+                    elif dstPc == "+KE" or dstPc == "+NK":
+                        csaFile._hands[12] += 1
+                    elif dstPc == "+GI" or dstPc == "+NG":
+                        csaFile._hands[11] += 1
+                    elif dstPc == "+KI":
+                        csaFile._hands[10] += 1
+                    elif dstPc == "+KA" or dstPc == "+UM":
+                        csaFile._hands[9] += 1
+                    elif dstPc == "+HI" or dstPc == "+RY":
+                        csaFile._hands[8] += 1
+                    elif dstPc == "+OU":
+                        pass
+                else:
+                    raise Exception(f"phase={phase}")
+
+                # 移動元の駒を消す
+                csaFile._board[source] = " * "
+
+                # 移動先に駒を置く
+                csaFile._board[destination] = srcPc
+
                 # 盤操作
+
                 continue
 
             # 終了時刻
             result = CsaFile.__patternEndTime.match(line)
             if result:
-                # print(f"EndTime [1]={result.group(1)} [2]={result.group(2)} [3]={result.group(3)} [4]={result.group(4)} [5]={result.group(5)} [6]={result.group(6)}")
+                print(f"EndTime [1]={result.group(1)} [2]={result.group(2)} [3]={result.group(3)} [4]={result.group(4)} [5]={result.group(5)} [6]={result.group(6)}")
                 csaFile._endTime = datetime.datetime(
                     int(result.group(1)),
                     int(result.group(2)),
@@ -132,7 +210,7 @@ class CsaFile:
                     int(result.group(6)))
                 continue
 
-            # print(f"> {line}")
+            print(f"> {line}")
 
         return csaFile
 
