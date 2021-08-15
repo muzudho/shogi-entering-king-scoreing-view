@@ -92,7 +92,7 @@ class CsaFile:
                 rank = int(result.group(1))
                 print(f"P> {result.group(0)}")
                 # print(f"rank={rank}")
-                print(f"rank={rank} 9[{result.group(2)}]")
+                # print(f"rank={rank} 9[{result.group(2)}]")
                 csaFile._board[90 + rank] = result.group(2)
                 csaFile._board[80 + rank] = result.group(3)
                 csaFile._board[70 + rank] = result.group(4)
@@ -108,7 +108,12 @@ class CsaFile:
             # 指し手
             result = CsaFile.__patternMove.match(line)
             if result:
-                print(f"M {result.group(0)} [1]{result.group(1)} [2]{result.group(2)} [3]{result.group(3)} [4]{result.group(4)}")
+                phase = result.group(1)
+                source = int(result.group(2))
+                destination = int(result.group(3))
+                piece = result.group(4)
+                print(f"M {result.group(0)} [phase]{phase:>2} [source]{source:>2} [destination]{destination} [piece]{piece}")
+                # 盤操作
                 continue
 
             # 終了時刻
