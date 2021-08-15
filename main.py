@@ -5,7 +5,8 @@ from csa_file import CsaFile
 intervalSeconds = 15 # 棋譜読取間隔15秒
 heartBeatSeconds = 0 # 画面が止まってないことをアピールするために増えていくだけの数
 score = []
-while True:
+# while True:
+if True:
 
     try:
         # 棋譜ファイル（CSA形式）のURLを指定してください
@@ -27,13 +28,13 @@ while True:
         print(f'ハートビート {heartBeatSeconds}') # 生きてますよ
         heartBeatSeconds += intervalSeconds
         time.sleep(intervalSeconds)
-        continue
+        # TODO continue
 
     # 残り時間が変わらなかったら更新しない
     if score == [0, csaFile.enteringKingScoreing[1], csaFile.enteringKingScoreing[2]] :
         heartBeatSeconds += intervalSeconds
         time.sleep(intervalSeconds)
-        continue
+        # TODO continue
 
     # Windows用のコマンド　コンソール消去
     os.system('cls')
@@ -54,13 +55,13 @@ while True:
     print(f'    大会モード {csaFile.tournament}') 
     print(f'    URL {csaFile.url}') 
     # 盤表示
-    csaFile.printBoard()
+    # csaFile.printBoard()
     print(f'    ハートビート {heartBeatSeconds}') # 生きてますよ
 
     if csaFile.endTime:
         # 終了してんだったら　ループを抜けよ（＾～＾）
         print(f'おわり')
-        break
+        # TODO break
 
     heartBeatSeconds += intervalSeconds
     time.sleep(intervalSeconds)

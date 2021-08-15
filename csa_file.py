@@ -17,7 +17,10 @@ class CsaFile:
     # P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
     # P8 * +KA *  *  *  *  * +HI * 
     # P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
-    __patternP = re.compile(r"^\$P(\d)(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})$")
+    __patternP = re.compile(r"P(\d)-KY-KE-GI-KI-OU-KI-GI-KE-KY")
+    # __patternP = re.compile(r"P1\-KY\-KE\-GI\-KI\-OU\-KI\-GI\-KE\-KY")
+    # __patternP = re.compile(r"^P([A-Z-]+)$")
+    # __patternP = re.compile(r"^\$P(\d)(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})$")
 
     # 指し手
     # Example: +7776FU
@@ -88,8 +91,10 @@ class CsaFile:
             # 開始局面
             result = CsaFile.__patternP.match(line)
             if result:
-                print(f"P {result.group(0)}")
+                # print(f"P> {line}")
+                print(f"P> {result.group(0)}")
                 rank = result.group(1)
+                """
                 file9 = result.group(2)
                 file8 = result.group(3)
                 file7 = result.group(4)
@@ -100,12 +105,15 @@ class CsaFile:
                 file2 = result.group(9)
                 file1 = result.group(10)
                 print(f"P Rank[{rank}] 9[{file9}] 8[{file8}] 7[{file7}] 6[{file6}] 5[{file5}] 4[{file4}] 3[{file3}] 2[{file2}] 1[{file1}]")
+                """
+                print(f"P Rank[{rank}]")
                 continue
 
+            '''
             # 指し手
             result = CsaFile.__patternMove.match(line)
             if result:
-                print(f"M {result.group(0)}")
+                # print(f"M {result.group(0)}")
                 continue
 
             # 終了時刻
@@ -120,8 +128,9 @@ class CsaFile:
                     int(result.group(5)),
                     int(result.group(6)))
                 continue
+            '''
 
-            # print(f"> {line}")
+            print(f"> {line}")
 
         return csaFile
 
