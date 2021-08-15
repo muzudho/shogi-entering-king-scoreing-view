@@ -37,7 +37,7 @@ if True:
         # TODO continue
 
     # Windows用のコマンド　コンソール消去
-    os.system('cls')
+    # os.system('cls')
 
     # 残り時間の算出
     score = csaFile.enteringKingScoreing

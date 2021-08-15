@@ -17,7 +17,9 @@ class CsaFile:
     # P7+FU+FU+FU+FU+FU+FU+FU+FU+FU
     # P8 * +KA *  *  *  *  * +HI * 
     # P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
-    __patternP = re.compile(r"P(\d)-KY-KE-GI-KI-OU-KI-GI-KE-KY")
+    __patternP0 = re.compile(r"P1-KY-KE-GI-KI-OU-KI-GI-KE-KY")
+    __patternP1 = re.compile(r"P(\d)-KY-KE-GI-KI-OU-KI-GI-KE-KY")
+    __patternP2 = re.compile(r"P(\d)(.{3})-KE-GI-KI-OU-KI-GI-KE-KY")
     # __patternP = re.compile(r"P1\-KY\-KE\-GI\-KI\-OU\-KI\-GI\-KE\-KY")
     # __patternP = re.compile(r"^P([A-Z-]+)$")
     # __patternP = re.compile(r"^\$P(\d)(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})(.{3})$")
@@ -89,13 +91,52 @@ class CsaFile:
                     raise Exception(f'It\'s not a CSA file. Expected: "V2", etc. Found: {line}')
 
             # 開始局面
-            result = CsaFile.__patternP.match(line)
+            result = CsaFile.__patternP2.match(line)
+            if result:
+                # print(f"P> {line}")
+                print(f"P> {result.group(0)}")
+                rank = result.group(1)
+                file9 = result.group(2)
+                """
+                file8 = result.group(3)
+                file7 = result.group(4)
+                file6 = result.group(5)
+                file5 = result.group(6)
+                file4 = result.group(7)
+                file3 = result.group(8)
+                file2 = result.group(9)
+                file1 = result.group(10)
+                print(f"P  8[{file8}] 7[{file7}] 6[{file6}] 5[{file5}] 4[{file4}] 3[{file3}] 2[{file2}] 1[{file1}]")
+                """
+                print(f"P Rank[{rank}] 9[{file9}]")
+                continue
+
+            # 開始局面
+            result = CsaFile.__patternP1.match(line)
             if result:
                 # print(f"P> {line}")
                 print(f"P> {result.group(0)}")
                 rank = result.group(1)
                 """
-                file9 = result.group(2)
+                file8 = result.group(3)
+                file7 = result.group(4)
+                file6 = result.group(5)
+                file5 = result.group(6)
+                file4 = result.group(7)
+                file3 = result.group(8)
+                file2 = result.group(9)
+                file1 = result.group(10)
+                print(f"P  8[{file8}] 7[{file7}] 6[{file6}] 5[{file5}] 4[{file4}] 3[{file3}] 2[{file2}] 1[{file1}]")
+                """
+                print(f"P Rank[{rank}]")
+                continue
+
+            # 開始局面
+            result = CsaFile.__patternP0.match(line)
+            if result:
+                # print(f"P> {line}")
+                print(f"P> {result.group(0)}")
+                """
                 file8 = result.group(3)
                 file7 = result.group(4)
                 file6 = result.group(5)
@@ -106,7 +147,6 @@ class CsaFile:
                 file1 = result.group(10)
                 print(f"P Rank[{rank}] 9[{file9}] 8[{file8}] 7[{file7}] 6[{file6}] 5[{file5}] 4[{file4}] 3[{file3}] 2[{file2}] 1[{file1}]")
                 """
-                print(f"P Rank[{rank}]")
                 continue
 
             '''
@@ -130,7 +170,7 @@ class CsaFile:
                 continue
             '''
 
-            print(f"> {line}")
+            # print(f"> {line}")
 
         return csaFile
 
