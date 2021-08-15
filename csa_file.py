@@ -108,7 +108,7 @@ class CsaFile:
             # 指し手
             result = CsaFile.__patternMove.match(line)
             if result:
-                # print(f"M {result.group(0)}")
+                print(f"M {result.group(0)} [1]{result.group(1)} [2]{result.group(2)} [3]{result.group(3)} [4]{result.group(4)}")
                 continue
 
             # 終了時刻
