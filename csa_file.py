@@ -93,7 +93,7 @@ class CsaFile:
                 print(f"P> {result.group(0)}")
                 # print(f"rank={rank}")
                 print(f"rank={rank} 9[{result.group(2)}]")
-                csaFile.board[90 + rank] = result.group(2)
+                csaFile._board[90 + rank] = result.group(2)
                 csaFile._board[80 + rank] = result.group(3)
                 csaFile._board[70 + rank] = result.group(4)
                 csaFile._board[60 + rank] = result.group(5)
