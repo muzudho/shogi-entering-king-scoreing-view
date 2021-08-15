@@ -91,7 +91,7 @@ class CsaFile:
             # 開始局面
             result = CsaFile.__patternP.match(line)
             if result:
-                print(f"Position> {result.group(0)}")
+                # print(f"Position> {result.group(0)}")
                 rank = int(result.group(1))
                 csaFile._board[90 + rank] = result.group(2)
                 csaFile._board[80 + rank] = result.group(3)
@@ -113,7 +113,7 @@ class CsaFile:
                 piece = result.group(4)
                 srcPc = csaFile.board[source] # sourcePiece
                 dstPc = csaFile.board[destination] # destinationPiece
-                print(f"Move> {result.group(0)} [phase]{phase:>2} [source]{source:>2} [destination]{destination} [piece]{piece} srcPc[{srcPc}] dstPc[{dstPc}]")
+                # print(f"Move> {result.group(0)} [phase]{phase:>2} [source]{source:>2} [destination]{destination} [piece]{piece} srcPc[{srcPc}] dstPc[{dstPc}]")
                 if source != 0 and srcPc == ' * ':
                     raise Exception("空マスから駒を動かそうとしました")
 
@@ -201,14 +201,14 @@ class CsaFile:
                 csaFile._board[destination] = srcPc
 
                 # デバッグ
-                csaFile.printBoard()
+                # csaFile.printBoard()
 
                 continue
 
             # 終了時刻
             result = CsaFile.__patternEndTime.match(line)
             if result:
-                print(f"EndTime [1]={result.group(1)} [2]={result.group(2)} [3]={result.group(3)} [4]={result.group(4)} [5]={result.group(5)} [6]={result.group(6)}")
+                # print(f"EndTime [1]={result.group(1)} [2]={result.group(2)} [3]={result.group(3)} [4]={result.group(4)} [5]={result.group(5)} [6]={result.group(6)}")
                 csaFile._endTime = datetime.datetime(
                     int(result.group(1)),
                     int(result.group(2)),
@@ -223,7 +223,7 @@ class CsaFile:
         # スコア数え
         for sq in range(0,100,1):
             pc = csaFile.board[sq] # piece
-            print(f'piece=[{pc}]', end='')
+            # print(f'piece=[{pc}]', end='')
             rank = sq % 10
             if 0<rank and rank<=3:
                 # 後手陣地
@@ -234,7 +234,7 @@ class CsaFile:
                 elif pc == '+OU':
                     # 0点
                     pass
-            elif 7<rank and rank<=9:
+            elif 6<rank and rank<=9:
                 # 先手陣地
                 if pc == '-FU' or pc == '-KY' or pc == '-KE' or pc == '-GI' or pc == '-KI' or pc == '-TO' or pc == '-NY' or pc == '-NK' or pc == '-NG':
                     csaFile._enteringKingScoreing[2] += 1
