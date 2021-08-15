@@ -23,7 +23,7 @@ class CsaFile:
     # Example: +7776FU
     # Example: -8384FU
     __patternMove = re.compile(r"^([+-])(\d{2})(\d{2})(\w{2})$")
-    
+
     # 終了時間
     # Example: '$END_TIME:2021/08/10 21:14:45
     __patternEndTime = re.compile(r"^'\$END_TIME:(\d{4})/(\d{2})/(\d{2}) (\d{2}):(\d{2}):(\d{2})$")
@@ -89,20 +89,20 @@ class CsaFile:
             result = CsaFile.__patternP.match(line)
             if result:
                 # print(f"P> {line}")
-                # print(f"P> {result.group(0)}")
-                """
-                rank = result.group(1)
-                file9 = result.group(2)
-                file8 = result.group(3)
-                file7 = result.group(4)
-                file6 = result.group(5)
-                file5 = result.group(6)
-                file4 = result.group(7)
-                file3 = result.group(8)
-                file2 = result.group(9)
-                file1 = result.group(10)
-                print(f"P Rank[{rank}] 9[{file9}] 8[{file8}] 7[{file7}] 6[{file6}] 5[{file5}] 4[{file4}] 3[{file3}] 2[{file2}] 1[{file1}]")
-                """
+                rank = int(result.group(1))
+                print(f"P> {result.group(0)}")
+                # print(f"rank={rank}")
+                print(f"rank={rank} 9[{result.group(2)}]")
+                csaFile.board[90 + rank] = result.group(2)
+                csaFile._board[80 + rank] = result.group(3)
+                csaFile._board[70 + rank] = result.group(4)
+                csaFile._board[60 + rank] = result.group(5)
+                csaFile._board[50 + rank] = result.group(6)
+                csaFile._board[40 + rank] = result.group(7)
+                csaFile._board[30 + rank] = result.group(8)
+                csaFile._board[20 + rank] = result.group(9)
+                csaFile._board[10 + rank] = result.group(10)
+                # print(f"P Rank[{rank}] 9[{file9}] 8[{file8}] 7[{file7}] 6[{file6}] 5[{file5}] 4[{file4}] 3[{file3}] 2[{file2}] 1[{file1}]")
                 continue
 
             # 指し手
