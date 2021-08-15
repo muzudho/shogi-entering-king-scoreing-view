@@ -1,6 +1,9 @@
 # shogi-entering-king-scoreing-view
 
-TODO CSA棋譜をパースして、入玉宣言法（２７点法）の点数表示（＾～＾）
+![20210815shogi67.png](./doc/img/20210815shogi67.png)  
+
+テスト１回しかしてない（＾～＾）  
+CSA棋譜をパースして、入玉宣言法（２７点法）の点数表示（＾～＾）  
 
 .csa 棋譜から算出（＾～＾）  
 電竜戦、 floodgate に対応（＾～＾） 対応してなかったら直せ（＾～＾）  

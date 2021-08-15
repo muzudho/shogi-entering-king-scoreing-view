@@ -53,8 +53,11 @@ while True:
     # デバッグ用情報
     print(f'    大会モード {csaFile.tournament}') 
     print(f'    URL {csaFile.url}') 
+
     # 盤表示
     # csaFile.printBoard()
+    print(f'    (デバッグ用 盤表示コメントアウト中)') 
+
     print(f'    ハートビート {heartBeatSeconds}') # 生きてますよ
 
     if csaFile.endTime:
