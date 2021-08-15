@@ -138,7 +138,7 @@ class CsaFile:
                         else:
                             raise Exception(f"+ phase={phase} piece={piece}")
                     elif phase=='-':
-                        srcPc = '+{}'.format(piece)
+                        srcPc = '-{}'.format(piece)
                         if piece == 'FU':
                             csaFile._hands[14] -= 1
                         elif piece == 'KY':
