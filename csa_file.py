@@ -227,19 +227,23 @@ class CsaFile:
             rank = sq % 10
             if 0<rank and rank<=3:
                 # 後手陣地
-                ph = 1
+                if pc == '+FU' or pc == '+KY' or pc == '+KE' or pc == '+GI' or pc == '+KI' or pc == '+TO' or pc == '+NY' or pc == '+NK' or pc == '+NG':
+                    csaFile._enteringKingScoreing[1] += 1
+                elif pc == '+KA' or pc == '+HI' or pc == '+UM' or pc == '+RY':
+                    csaFile._enteringKingScoreing[1] += 5
+                elif pc == '+OU':
+                    # 0点
+                    pass
             elif 7<rank and rank<=9:
                 # 先手陣地
-                ph = 2
+                if pc == '-FU' or pc == '-KY' or pc == '-KE' or pc == '-GI' or pc == '-KI' or pc == '-TO' or pc == '-NY' or pc == '-NK' or pc == '-NG':
+                    csaFile._enteringKingScoreing[2] += 1
+                elif pc == '-KA' or pc == '-HI' or pc == '-UM' or pc == '-RY':
+                    csaFile._enteringKingScoreing[2] += 5
+                elif pc == '-OU':
+                    # 0点
+                    pass
             else:
-                ph = 0
-
-            if pc == 'FU' or pc == 'KY' or pc == 'KE' or pc == 'GI' or pc == 'KI' or pc == 'TO' or pc == 'NY' or pc == 'NK' or pc == 'NG':
-                csaFile._enteringKingScoreing[ph] += 1
-            elif pc == 'KA' or pc == 'HI' or pc == 'UM' or pc == 'RY':
-                csaFile._enteringKingScoreing[ph] += 5
-            elif pc == 'OU':
-                # 0点
                 pass
 
         return csaFile
